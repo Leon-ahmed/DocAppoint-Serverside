@@ -51,6 +51,11 @@ async function run() {
 
 
 
+     app.get('/bookings',async(req,res)=>{
+      const result= await appointmentCollection.find().toArray();
+      res.json(result);
+     })
+
 
 
 
