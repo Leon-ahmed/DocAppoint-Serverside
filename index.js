@@ -10,7 +10,7 @@ const app = express();
 const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
-
+ 
 
 app.use(cors());
 app.use(express.json());
@@ -57,7 +57,7 @@ async function run() {
      })
 
 
-const { ObjectId } = require("mongodb");
+
 
 app.patch('/bookings/:id', async (req, res) => {
     const { id } = req.params;
@@ -70,6 +70,28 @@ app.patch('/bookings/:id', async (req, res) => {
 
     res.json(result);
 });
+
+
+app.delete('/bookings/:id',async(req,res)=>{
+     
+   const {id}=req.params;
+   const result= await appointmentCollection.deleteOne(
+    {_id:new ObjectId(id),  }
+   );
+
+   res.json(result);
+ 
+
+
+
+})
+
+
+
+
+
+
+
 
 
     
