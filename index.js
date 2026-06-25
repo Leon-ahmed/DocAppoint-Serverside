@@ -52,7 +52,8 @@ async function run() {
 
 
      app.get('/bookings',async(req,res)=>{
-      const result= await appointmentCollection.find().toArray();
+       const email = req.query.email;
+      const result= await appointmentCollection.find({ userEmail: email }).toArray();
       res.json(result);
      })
 
