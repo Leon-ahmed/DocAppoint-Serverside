@@ -33,6 +33,7 @@ const client = new MongoClient(uri, {
 });
 
  let appointmentCollection;
+  let userCollection;
 async function run() {
   try {
     
@@ -40,7 +41,7 @@ async function run() {
 
       const db = client.db("docappoint");  
         appointmentCollection = db.collection("bookings");
-
+       userCollection = db.collection("user");
 
      app.post('/bookings',async(req,res)=>{
           const appointmentData = req.body
@@ -70,6 +71,26 @@ app.patch('/bookings/:id', async (req, res) => {
     );
 
     res.json(result);
+});
+
+
+
+
+app.patch("/user/profile", async (req, res) => {
+  const { currentEmail, name, email, image } = req.body;
+
+  const result = await userCollection.updateOne(
+    { email: currentEmail },
+    {
+      $set: {
+        name,
+        email,
+        image
+      }
+    }
+  );
+
+  res.json(result);
 });
 
 
